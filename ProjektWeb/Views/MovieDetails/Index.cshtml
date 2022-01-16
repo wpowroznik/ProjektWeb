@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ProjektWeb.Models.MovieDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<p>
+    @if (this.User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Dodaj nowy", "Create")
+    }
+    </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieTime)
+        </td>
+        <td>
+            @if (this.User.IsInRole("admin"))
+            {
+
+                var cos = " | ";
+
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.MovieID });
+                @cos;
+                @Html.ActionLink("Szczegoły", "Details", new { id = item.MovieID })
+                @cos;
+                @Html.ActionLink("Usuń", "Delete", new { id = item.MovieID })
+            }
+
+        </td>
+    </tr>
+}
+
+</table>
